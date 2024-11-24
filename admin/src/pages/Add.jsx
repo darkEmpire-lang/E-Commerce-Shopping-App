@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { assets } from '../assets/assets';
 import axios from 'axios';
 import { backendUrl } from '../App';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Add = ({ token }) => {
@@ -37,11 +37,7 @@ const Add = ({ token }) => {
             if (image3) formData.append('image3', image3);
             if (image4) formData.append('image4', image4);
 
-            const response = await axios.post(
-                `${backendUrl}/api/product/add`,
-                formData,
-                { headers: { token } }
-            );
+            const response = await axios.post( `${backendUrl}/api/product/add`, formData, { headers: { token } });
 
             console.log(response.data);
             if (response.data.success) {
