@@ -7,7 +7,8 @@ import userRouter from './routes/userRoute.js'
 import productRouter from './routes/productRoutes.js'
 import cartRouter from './routes/cartRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
-const helmet = require('helmet');
+import bodyParser from 'body-parser'; // Use 'import' for body-parser
+import helmet from 'helmet'; // Use 'import' for helmet
 
 
 //app congfig
@@ -41,6 +42,13 @@ app.use(
     }
   })
 );
+
+
+// Middleware
+app.use(cors()); // Allow all origins. Adjust for production.
+app.use(bodyParser.json()); // Parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
 
 
 // Set up Helmet for Content Security Policy
