@@ -47,8 +47,6 @@ app.use(
 );
 
 
-app.use(express.json()); // JSON parser middleware
-
 // Middleware
 app.use(cors()); // Allow all origins. Adjust for production.
 app.use(bodyParser.json()); // Parse JSON bodies
