@@ -16,7 +16,7 @@ const Orders = ({ token }) => {
 
     try {
       // Fetch orders from the backend
-      const response = await axios.post(backendUrl + '/api/order/list', {}, { headers: { token } });
+      const response = await axios.get(backendUrl +'/api/order/list', {}, { headers: { token } });
       if (response.data.success) {
         // Set orders in the state and display the new ones at the top
         setOrders(response.data.orders.reverse()); // Reverse to show new orders on top
