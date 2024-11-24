@@ -1,20 +1,22 @@
-import express from 'express'
-import cors from 'cors'
-import 'dotenv/config'
-import mongoose from 'mongoose'
-import connectCloudinary from './config/cloudinary.js'
-import userRouter from './routes/userRoute.js'
-import productRouter from './routes/productRoutes.js'
-import cartRouter from './routes/cartRoutes.js'
-import orderRouter from './routes/orderRoutes.js'
+import express from 'express';
+import cors from 'cors';
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import connectCloudinary from './config/cloudinary.js';
+import userRouter from './routes/userRoute.js';
+import productRouter from './routes/productRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
 import bodyParser from 'body-parser'; // Use 'import' for body-parser
-import helmet from 'helmet'; // Use 'import' for helmet
+import helmet from 'helmet'; // Use 'import' for helmet'
 
+// Initialize the Express app
+const app = express();
 
+// Port configuration
+const port = process.env.PORT || 4000;
 
-
-
-
+// Allowed origins for CORS
 const allowedOrigins = [
   'https://e-commerce-shopping-app-admin-panel.vercel.app', 
   'https://e-commerce-shopping-app-tan.vercel.app'
@@ -46,43 +48,24 @@ app.use(
   })
 );
 
-
 // Middleware
-app.use(cors()); // Allow all origins. Adjust for production.
+app.use(express.json());
 app.use(bodyParser.json()); // Parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
+// Connect Cloudinary
+connectCloudinary();
 
+// API Endpoints
+app.use('/api/user', userRouter);
+app.use('/api/product', productRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/order', orderRouter);
 
-//app congfig
-const app=express()
-const port =process.env.port || 4000
-
-//middleware
-app.use(express.json())
-app.use(cors())
-
-
-
-//connect cloudinary
-connectCloudinary()
-
-
-//api end point
-
-app.use('/api/user',userRouter)
-app.use('/api/product',productRouter)
-app.use('/api/cart',cartRouter)
-app.use('/api/order',orderRouter)
-
-
-app.get('/',(req,res)=>{
-
-    res.send("API WORKING")
-})
-
-app.listen(port,()=>console.log('Server is running on port :'+port))
-
+// Root endpoint
+app.get('/', (req, res) => {
+  res.send('API WORKING');
+});
 
 // MongoDB connection
 const mongoURI = process.env.MONGO_URI;
@@ -92,9 +75,10 @@ if (!mongoURI) {
   process.exit(1);
 }
 
-mongoose.connect(mongoURI, {
-   // useNewUrlParser: true,
-   // useUnifiedTopology: true,
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log('MongoDB connected successfully');
@@ -104,4 +88,5 @@ mongoose.connect(mongoURI, {
     process.exit(1); // Exit the app if DB connection fails
   });
 
- 
+// Start the server
+app.listen(port, () => console.log('Server is running on port: ' + port));
