@@ -1,5 +1,5 @@
 import express from 'express'
-import { placeOrder,placeOrderRazorpay,placeOrderStripe,allOrders,updateStatus,userOrders,verifyStripe, deleteOrder,deleteMultipleOrders} from '../controllers/orderController.js'
+import { placeOrder,placeOrderRazorpay,placeOrderStripe,allOrders,updateStatus,userOrders,verifyStripe } from '../controllers/orderController.js'
 import adminAuth from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
 
@@ -9,11 +9,6 @@ const orderRouter=express.Router()
 //Admin Features
 orderRouter.post('/list',adminAuth,allOrders)
 orderRouter.post('/status',adminAuth,updateStatus)
-
-orderRouter.delete('/:id',adminAuth, deleteOrder);
-
-// Delete multiple orders
-orderRouter.post('/delete-multiple',adminAuth, deleteMultipleOrders);
 
 
 
