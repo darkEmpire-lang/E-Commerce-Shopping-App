@@ -7,6 +7,7 @@ import userRouter from './routes/userRoute.js'
 import productRouter from './routes/productRoutes.js'
 import cartRouter from './routes/cartRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
+const helmet = require('helmet');
 
 
 //app congfig
@@ -16,6 +17,44 @@ const port =process.env.port || 4000
 //middleware
 app.use(express.json())
 app.use(cors())
+
+
+
+
+const allowedOrigins = [
+  'https://deal-mates-admin.vercel.app', 
+  'https://deal-mates-online-store.vercel.app'
+
+];
+
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g., mobile apps, CURL)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('The CORS policy for this site does not allow access from the specified origin.'));
+      }
+    }
+  })
+);
+
+
+// Set up Helmet for Content Security Policy
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "script-src": ["'self'", "https://vercel.live"], // Allow scripts from vercel.live
+      "default-src": ["'self'"],
+    },
+  })
+);
+
+
 
 
 
