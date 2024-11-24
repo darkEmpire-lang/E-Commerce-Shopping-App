@@ -11,24 +11,16 @@ import bodyParser from 'body-parser'; // Use 'import' for body-parser
 import helmet from 'helmet'; // Use 'import' for helmet
 
 
-//app congfig
-const app=express()
-const port =process.env.port || 4000
-
-//middleware
-app.use(express.json())
-app.use(cors())
 
 
 
 
 const allowedOrigins = [
-  'https://e-commerce-shopping-app-tan.vercel.app', 
-  'https://e-commerce-shopping-app-admin-panel.vercel.app'
-
+  'https://e-commerce-shopping-app-admin-panel.vercel.app', 
+  'https://e-commerce-shopping-app-tan.vercel.app'
 ];
 
-
+// CORS middleware
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -43,14 +35,6 @@ app.use(
   })
 );
 
-
-// Middleware
-app.use(cors()); // Allow all origins. Adjust for production.
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-
-
 // Set up Helmet for Content Security Policy
 app.use(
   helmet.contentSecurityPolicy({
@@ -63,6 +47,22 @@ app.use(
 );
 
 
+app.use(express.json()); // JSON parser middleware
+
+// Middleware
+app.use(cors()); // Allow all origins. Adjust for production.
+app.use(bodyParser.json()); // Parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+
+
+//app congfig
+const app=express()
+const port =process.env.port || 4000
+
+//middleware
+app.use(express.json())
+app.use(cors())
 
 
 
