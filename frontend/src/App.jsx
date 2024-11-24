@@ -9,11 +9,11 @@ import Contact from './pages/Contact'
 import About from './pages/About'
 import Cart from './pages/Cart'
 import Order from './pages/Order'
-import Navbar from './components/navbar'
+import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
 import Verify from './pages/verify'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -48,4 +48,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
