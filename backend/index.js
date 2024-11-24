@@ -23,8 +23,8 @@ app.use(cors())
 
 
 const allowedOrigins = [
-  'https://deal-mates-admin.vercel.app', 
-  'https://deal-mates-online-store.vercel.app'
+  'https://e-commerce-shopping-app-tan.vercel.app', 
+  'https://forever-admin-panel.vercel.app'
 
 ];
 
