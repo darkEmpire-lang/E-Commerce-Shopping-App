@@ -24,7 +24,7 @@ app.use(cors())
 
 const allowedOrigins = [
   'https://e-commerce-shopping-app-tan.vercel.app', 
-  'https://forever-admin-panel.vercel.app'
+  'https://e-commerce-shopping-app-admin-panel.vercel.app'
 
 ];
 
