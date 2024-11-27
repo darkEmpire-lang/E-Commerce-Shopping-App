@@ -80,6 +80,7 @@ import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import home from './home.png'
 import fullvideo from './fullvideo.mp4'
+import cartpage from './cartpage.png'
 
 export const assets = {
     logo,
@@ -107,7 +108,8 @@ export const assets = {
     Gray,
     Gray_black,
     home,
-    fullvideo 
+    fullvideo,
+    cartpage
 }
 
 export const products = [
