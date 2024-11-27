@@ -57,9 +57,11 @@ Feel free to submit pull requests or suggest new features. Let's grow **Malka Fa
 
 ---
 
-## 📸 **Video**
+## 📸 **screenshots-cart page**
 
-![video](frontend/src/assets/fullvideo.mp4)
+
+![Home Page](frontend/src/assets/cartpage.png) 
+
 
 
 
