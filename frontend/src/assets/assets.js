@@ -79,6 +79,7 @@ import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import home from './home.png'
+import fullvideo from './fullvideo.mp4'
 
 export const assets = {
     logo,
@@ -105,7 +106,8 @@ export const assets = {
     White_post,
     Gray,
     Gray_black,
-    home
+    home,
+    fullvideo 
 }
 
 export const products = [
