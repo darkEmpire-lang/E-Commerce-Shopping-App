@@ -7,7 +7,7 @@ const NavBar = ({setToken}) => {
       {/* Logo */}
       <img
         className="w-[max(10%,80px)] sm:w-[max(8%,100px)] cursor-pointer hover:opacity-90 transition-opacity"
-        src={assets.logo}
+        src={assets.Fashion_Logo}
         alt="Logo"
       />
      

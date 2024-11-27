@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col sm:flex-row sm:justify-between items-center sm:items-start gap-10 px-5">
         {/* Logo Section */}
         <div className="flex flex-col items-center sm:items-start">
-          <img className="w-32 mb-4" src={assets.logo} alt="Company Logo" />
+          <img className="w-32 mb-4" src={assets.Fashion_Logo} alt="Company Logo" />
           <p className="w-full md:w-2/3 text-center sm:text-left text-gray-600 leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae autem voluptas modi id facilis aliquam aperiam.
           </p>
@@ -30,7 +30,7 @@ const Footer = () => {
           <p className="text-lg font-semibold mb-4 text-gray-700">Get in Touch</p>
           <ul className="flex flex-col gap-2 text-gray-600">
             <li className="hover:text-gray-800 cursor-pointer">+94740815990</li>
-            <li className="hover:text-gray-800 cursor-pointer">contact@foreveryou.com</li>
+            <li className="hover:text-gray-800 cursor-pointer">contact@malkafashion.com</li>
           </ul>
         </div>
       </div>
@@ -38,7 +38,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="mt-10 border-t border-gray-300 pt-5">
         <p className="text-sm text-gray-600 text-center">
-          Copyright © 2024 Pasindu All rights reserved.
+          Copyright © 2024 Malkafashion All rights reserved.
         </p>
       </div>
     </footer>

@@ -10,6 +10,7 @@ const Home = () => {
     <div>
 
       <Hero/>
+      
       <LatestCollection/>
       <BestSeller/>
       <OurPolicy/>

@@ -54,7 +54,12 @@ import p_img50 from './p_img50.png'
 import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
 
-
+import Gray_black from './Gray_black.mp4'
+import Gray from './Gray.png'
+import White_post from './White_post.png'
+import Pink_Elegant from './Pink_Elegant.png'
+import Fashion_Logo from './Fashion_Logo.png'
+import Black from './Black.png'
 import logo from './logo.png'
 import hero_img from './hero_img.png'
 import cart_icon from './cart_icon.png'
@@ -73,6 +78,7 @@ import contact_img from './contact_img.png'
 import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
+import home from './home.png'
 
 export const assets = {
     logo,
@@ -92,7 +98,14 @@ export const assets = {
     contact_img,
     razorpay_logo,
     stripe_logo,
-    cross_icon
+    cross_icon,
+    Black,
+    Fashion_Logo,
+    Pink_Elegant,
+    White_post,
+    Gray,
+    Gray_black,
+    home
 }
 
 export const products = [

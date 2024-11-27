@@ -13,6 +13,9 @@ import helmet from 'helmet'; // Use 'import' for helmet'
 // Initialize the Express app
 const app = express();
 
+
+
+
 // Port configuration
 const port = process.env.PORT || 4000;
 
@@ -50,8 +53,8 @@ app.use(
 
 // Middleware
 app.use(express.json());
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
+ app.use(bodyParser.json()); // Parse JSON bodies
+ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Connect Cloudinary
 connectCloudinary();
