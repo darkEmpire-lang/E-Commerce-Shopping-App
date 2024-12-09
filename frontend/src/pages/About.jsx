@@ -16,7 +16,7 @@ const About = () => {
           </div>
           <div className="w-full md:w-1/2 text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Welcome to Forever Online Clothing Shop
+              Welcome to Malka Fashion Online Clothing Shop
             </h2>
             <p className="text-lg text-gray-600 mb-4">
               We bring you the latest and most stylish trends in fashion. From casual wear to formal
