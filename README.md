@@ -1,4 +1,4 @@
-# 🌟 **Malka Fashion - E-Commerce App**
+# 🌟 **Malka Fashion - Online Clothing Store**
 
 ![Home Page](frontend/src/assets/home.png) 
 
@@ -29,7 +29,7 @@
 
 ---
 
-## 🎥 **Demo**
+## 🎥 **Demo Video**
 
 👇 **Watch the Walkthrough**  
 📹 [Click Here]https://shorturl.at/tb0TU
@@ -57,9 +57,11 @@ Feel free to submit pull requests or suggest new features. Let's grow **Malka Fa
 
 ---
 
-## 📸 **Video**
+## 📸 **screenshots-cart page**
 
-![video](frontend/src/assets/fullvideo.mp4)
+
+![Home Page](frontend/src/assets/cartpage.png) 
+
 
 
 
