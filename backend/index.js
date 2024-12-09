@@ -22,7 +22,10 @@ const port = process.env.PORT || 4000;
 // Allowed origins for CORS
 const allowedOrigins = [
   'https://e-commerce-shopping-app-admin-panel.vercel.app', 
-  'https://e-commerce-shopping-app-tan.vercel.app'
+  'https://e-commerce-shopping-app-tan.vercel.app',
+  'http://localhost:5173'
+
+
 ];
 
 // CORS middleware
