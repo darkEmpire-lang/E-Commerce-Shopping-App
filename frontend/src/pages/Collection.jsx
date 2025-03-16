@@ -15,7 +15,17 @@ const Collection = () => {
   // Toggle Category Filter
   const toggleCategory = (e) => {
     const value = e.target.value;
-    setCategory((prev) =>
+    setCategory((prev) =>+
+
+
+
+
+
+
+
+
+
+    
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
@@ -170,7 +180,7 @@ const Collection = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {filterProducts.map((item, index) => (
             <ProductItem
               key={index}
