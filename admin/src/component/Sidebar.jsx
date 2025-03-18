@@ -22,7 +22,7 @@ const Sidebar = () => {
           to="/list"
         >
           <img className="w-5 h-5" src={assets.list_icon} alt="List Icon" />
-          <p className="hidden md:block text-gray-700 font-medium">List Items</p>
+          <p className="hidden md:block text-gray-700 font-medium">List Furnitures</p>
         </NavLink>
         <hr className="border-t border-gray-200" /> {/* Divider between sections */}
 
@@ -34,6 +34,16 @@ const Sidebar = () => {
           <img className="w-5 h-5" src={assets.order_icon} alt="Orders Icon" />
           <p className="hidden md:block text-gray-700 font-medium">Orders</p>
         </NavLink>
+
+        <NavLink
+          className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition-all"
+          to="/orders"
+        >
+          <img className="w-5 h-5" src={assets.chart} alt="Orders Icon" />
+          <p className="hidden md:block text-gray-700 font-medium">Charts</p>
+        </NavLink>
+
+
       </div>
     </div>
   );

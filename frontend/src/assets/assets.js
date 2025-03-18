@@ -54,6 +54,11 @@ import p_img50 from './p_img50.png'
 import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
 
+
+
+
+import sofa from './sofa.avif';
+import sofa2 from './sofa2.webp';
 import Gray_black from './Gray_black.mp4'
 import Gray from './Gray.png'
 import White_post from './White_post.png'
@@ -81,6 +86,7 @@ import cross_icon from './cross_icon.png'
 import home from './home.png'
 import fullvideo from './fullvideo.mp4'
 import cartpage from './cartpage.png'
+import logo3 from './logo3.png'
 
 export const assets = {
     logo,
@@ -109,7 +115,10 @@ export const assets = {
     Gray_black,
     home,
     fullvideo,
-    cartpage
+    sofa,
+    sofa2,
+    cartpage,
+    logo3
 }
 
 export const products = [

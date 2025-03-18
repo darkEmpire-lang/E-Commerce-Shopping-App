@@ -1,17 +1,24 @@
-import React, { useContext, useState } from 'react';
-import { assets } from '../assets/assets';
-import { Link, NavLink } from 'react-router-dom';
-import { ShopContext } from '../context/ShopContext';
+import React, { useContext, useState } from "react";
+import { assets } from "../assets/assets";
+import { Link, NavLink } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { setShowSearch, getCartCount, navigate, token, setToken, setcartItems } = useContext(ShopContext);
+  const {
+    setShowSearch,
+    getCartCount,
+    navigate,
+    token,
+    setToken,
+    setcartItems,
+  } = useContext(ShopContext);
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setToken('');
+    localStorage.removeItem("token");
+    setToken("");
     setcartItems({});
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -19,8 +26,8 @@ const Navbar = () => {
       {/* Logo */}
       <Link to="/">
         <img
-          src={assets.Fashion_Logo}
-          className="w-40 sm:w-44 md:w-48 transform transition-all duration-300 hover:scale-110"
+          src={assets.logo3}
+          className="w-full sm:w-44 md:w-48 max-w-xs mx-auto transform transition-all duration-300 hover:scale-110 object-contain"
           alt="Logo"
         />
       </Link>
@@ -78,7 +85,10 @@ const Navbar = () => {
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
                 <p className="cursor-pointer hover:text-black">My Profile</p>
-                <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">
+                <p
+                  onClick={() => navigate("/orders")}
+                  className="cursor-pointer hover:text-black"
+                >
                   Orders
                 </p>
                 <p onClick={logout} className="cursor-pointer hover:text-black">
@@ -88,7 +98,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        
+
         <Link to="/cart" className="relative">
           <img
             src={assets.cart_icon}
@@ -110,11 +120,18 @@ const Navbar = () => {
         {/* Sidebar Menu for Small Screens */}
         <div
           className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transform transition-all duration-300 ${
-            visible ? 'w-3/4' : 'w-0'
+            visible ? "w-3/4" : "w-0"
           }`}
         >
-          <div onClick={() => setVisible(false)} className="flex items-center gap-4 p-3">
-            <img src={assets.dropdown_icon} className="h-4 rotate-180" alt="Back Icon" />
+          <div
+            onClick={() => setVisible(false)}
+            className="flex items-center gap-4 p-3"
+          >
+            <img
+              src={assets.dropdown_icon}
+              className="h-4 rotate-180"
+              alt="Back Icon"
+            />
             <p>Back</p>
           </div>
 

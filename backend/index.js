@@ -13,46 +13,28 @@ import helmet from 'helmet'; // Use 'import' for helmet'
 // Initialize the Express app
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 
 
 // Port configuration
 const port = process.env.PORT || 4000;
 
-// Allowed origins for CORS
-const allowedOrigins = [
-  'https://e-commerce-shopping-app-admin-panel.vercel.app', 
-  'https://e-commerce-shopping-app-tan.vercel.app',
-  'http://localhost:5173'
 
 
-];
-
-// CORS middleware
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (e.g., mobile apps, CURL)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('The CORS policy for this site does not allow access from the specified origin.'));
-      }
-    }
-  })
-);
-
-// Set up Helmet for Content Security Policy
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      "script-src": ["'self'", "https://vercel.live"], // Allow scripts from vercel.live
-      "default-src": ["'self'"],
-    },
-  })
-);
+// // Set up Helmet for Content Security Policy
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     useDefaults: true,
+//     directives: {
+//       "script-src": ["'self'", "https://vercel.live"], // Allow scripts from vercel.live
+//       "default-src": ["'self'"],
+//     },
+//   })
+// );
 
 // Middleware
 app.use(express.json());
@@ -64,7 +46,7 @@ connectCloudinary();
 
 // API Endpoints
 app.use('/api/user', userRouter);
-app.use('/api/product', productRouter);
+app.use('/api/product',productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 

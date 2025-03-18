@@ -4,8 +4,10 @@ import { assets } from '../assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 
+// Updated categories and subcategories in Collection.jsx
+
 const Collection = () => {
-  const { products,search,showSearch } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(true);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -15,17 +17,7 @@ const Collection = () => {
   // Toggle Category Filter
   const toggleCategory = (e) => {
     const value = e.target.value;
-    setCategory((prev) =>+
-
-
-
-
-
-
-
-
-
-    
+    setCategory((prev) =>
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
@@ -72,7 +64,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, sortOrder,search,showSearch]);
+  }, [category, subCategory, sortOrder, search, showSearch]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 pt-10 border-t">
@@ -95,75 +87,40 @@ const Collection = () => {
           className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}
         >
           <p className="mb-3 text-sm font-medium">CATEGORY</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <label className="flex gap-2">
+          {['Living Room', 'Bedroom', 'Dining Room', 'Office Furniture', 'Outdoor & Patio', 'Storage & Organization', 'Kids\' Furniture', 'Bathroom Furniture', 'Kitchen Furniture', 'Gaming & Entertainment'].map((item, idx) => (
+            <div key={idx} className="flex items-center gap-2">
               <input
-                className="w-4 h-4"
                 type="checkbox"
-                value="Men"
+                value={item}
+                checked={category.includes(item)}
                 onChange={toggleCategory}
               />
-              Men
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-4 h-4"
-                type="checkbox"
-                value="Women"
-                onChange={toggleCategory}
-              />
-              Women
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-4 h-4"
-                type="checkbox"
-                value="Kids"
-                onChange={toggleCategory}
-              />
-              Kids
-            </label>
-          </div>
+              <label className="text-sm">{item}</label>
+            </div>
+          ))}
         </div>
 
-        {/* Type Filter */}
+        {/* Subcategory Filter */}
         <div
-          className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}
+          className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}
         >
-          <p className="mb-3 text-sm font-medium">TYPE</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <label className="flex gap-2">
+          <p className="mb-3 text-sm font-medium">SUB CATEGORY</p>
+          {['Sofas & Couches', 'Coffee Tables', 'TV Stands & Media Consoles', 'Beds & Bed Frames', 'Nightstands', 'Dining Tables', 'Dining Chairs', 'Office Desks', 'Office Chairs', 'Patio Sets', 'Outdoor Sofas', 'Gaming Chairs', 'Gaming Desks', 'Bathroom Vanities', 'Storage Cabinets'].map((item, idx) => (
+            <div key={idx} className="flex items-center gap-2">
               <input
-                className="w-4 h-4"
                 type="checkbox"
-                value="Topwear"
+                value={item}
+                checked={subCategory.includes(item)}
                 onChange={toggleSubCategory}
               />
-              Topwear
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-4 h-4"
-                type="checkbox"
-                value="Bottomwear"
-                onChange={toggleSubCategory}
-              />
-              Bottomwear
-            </label>
-            <label className="flex gap-2">
-              <input
-                className="w-4 h-4"
-                type="checkbox"
-                value="Winterwear"
-                onChange={toggleSubCategory}
-              />
-              Winterwear
-            </label>
-          </div>
+              <label className="text-sm">{item}</label>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Right Side */}
+      {/* Product Listing */}
+
       <div className="flex-1">
         <div className="flex justify-between items-center text-base sm:text-2xl mb-4">
           <Title text1="  ALL  " text2="  COLLECTIONS  " />
@@ -192,8 +149,10 @@ const Collection = () => {
           ))}
         </div>
       </div>
+     
     </div>
   );
 };
+
 
 export default Collection;

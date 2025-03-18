@@ -286,9 +286,30 @@ const updateStatus=async (req,res)=>{
 
     
 }
+const deleteOrder = async (req, res) => {
+    const { orderId } = req.body;
+  
+    try {
+      const order = await Order.findById(orderId);  // Find the order by ID
+      if (!order) {
+        return res.status(404).json({ success: false, message: "Order not found" });
+      }
+  
+      // Proceed with deleting the order
+      await Order.findByIdAndDelete(orderId);
+  
+      return res.status(200).json({ success: true, message: "Order deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      return res.status(500).json({ success: false, message: "Failed to delete the order" });
+    }
+  };
+  
 
 
-export {placeOrder,placeOrderRazorpay,placeOrderStripe,updateStatus,allOrders,userOrders,verifyStripe}
+
+
+export {placeOrder,placeOrderStripe,updateStatus,allOrders,userOrders,verifyStripe,deleteOrder}
 
 
 
