@@ -12,7 +12,7 @@ const Sidebar = () => {
           to="/add"
         >
           <img className="w-5 h-5" src={assets.add_icon} alt="Add Icon" />
-          <p className="hidden md:block text-gray-700 font-medium">Add Items</p>
+          <p className="hidden md:block text-gray-700 font-medium">Add Furniture</p>
         </NavLink>
         <hr className="border-t border-gray-200" /> {/* Divider between sections */}
 
@@ -41,6 +41,14 @@ const Sidebar = () => {
         >
           <img className="w-5 h-5" src={assets.chart} alt="Orders Icon" />
           <p className="hidden md:block text-gray-700 font-medium">Charts</p>
+        </NavLink>
+
+        <NavLink
+          className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition-all"
+          to="/orders"
+        >
+          <img className="w-5 h-5" src={assets.report} alt="Orders Icon" />
+          <p className="hidden md:block text-gray-700 font-medium">Reports</p>
         </NavLink>
 
 
