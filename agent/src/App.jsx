@@ -12,6 +12,7 @@ import AddDeliveryOfficer from './pages/AddDeliveryOfficer '
 import DeliveryOfficerPage from './pages/DeliveryOfficerPage'
 import DeliveryAgentLogin from './component/DeliveryAgentLogin'
 import DeliveryAgentDashboard from './pages/DeliveryAgentDashboard'
+import UpdateProfile from './pages/UpdateProfile'
 
 
 export const backendUrl=import.meta.env.VITE_BACKEND_URL
@@ -59,6 +60,7 @@ const App = () => {
           <Route path='/agent' element ={<AddDeliveryOfficer token={token}/>}/>
           <Route path='/agents' element ={<DeliveryOfficerPage token={token}/>}/>
           <Route path='/dashboard' element ={<DeliveryAgentDashboard token={token}/>}/>
+           <Route path='/update' element ={<UpdateProfile token={token}/>}/>
   
   
          </Routes>

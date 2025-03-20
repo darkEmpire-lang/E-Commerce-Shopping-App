@@ -42,7 +42,9 @@ const DeliveryAgentLogin = ({ setToken }) => {
       });
       if (response.data.success) {
         setToken(response.data.token);
-        localStorage.setItem("agentName", response.data.agent.name);
+    
+        localStorage.setItem("agentId", response.data.agent.id);
+
         toast.success("Login Successful");
         navigate("/dashboard");
       } else {
@@ -74,6 +76,12 @@ const DeliveryAgentLogin = ({ setToken }) => {
       if (response.data.success) {
         toast.success("Signup Successful!");
         localStorage.setItem("agentName", name);
+        localStorage.setItem("agentEmail",email);
+        localStorage.setItem("agentPhone",phone)
+        localStorage.setItem("agentRole",role)
+        localStorage.setItem("agentisAvailble",isAvailable)
+        localStorage.setItem("agentavailbleHours", availableHours)
+        
         navigate("/dashboard");
       } else {
         toast.error(response.data.message);
@@ -139,7 +147,7 @@ const DeliveryAgentLogin = ({ setToken }) => {
                 onClick={toggleAuthMode}
               />
               <h2 className="text-2xl font-semibold text-center flex-grow">
-                Sign Up
+                Delivery Agent Sign Up
               </h2>
             </div>
 

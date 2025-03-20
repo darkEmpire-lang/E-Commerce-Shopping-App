@@ -1,24 +1,8 @@
 import DeliveryOfficer from '../models/deliveryofficer.js';
+import asyncHandler from "express-async-handler";
+import Delivery from '../models/delivery.js';
 
-// Create a new delivery officer
-// export const createOfficer = async (req, res) => {
-//   try {
-//     const { name, email, phone, isAvailable, role, availableHours } = req.body;
-//     const newOfficer = new DeliveryOfficer({ 
-//       name, 
-//       email, 
-//       phone, 
-//       isAvailable, 
-//       role, 
-//       availableHours 
-//     });
 
-//     await newOfficer.save();
-//     res.status(201).json({ message: 'Delivery Officer created successfully!', officer: newOfficer });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error creating delivery officer', error: error.message });
-//   }
-// };
 
 // Get all delivery officers
 export const getOfficers = async (req, res) => {
@@ -52,3 +36,47 @@ export const deleteOfficer = async (req, res) => {
     res.status(500).json({ message: 'Error deleting delivery officer', error: error.message });
   }
 };
+
+export const getAssignedOrdersForOfficer = asyncHandler(async (req, res) => {
+  try {
+    // Ensure the delivery officer is authenticated and get their ID
+    const deliveryOfficerId = req.agent._id;
+
+    // Fetch only orders assigned to this officer
+    const assignedOrders = await Delivery.find({ deliveryOfficerId }).sort({ assignedAt: -1 });
+
+    if (!assignedOrders || assignedOrders.length === 0) {
+      return res.status(404).json({ message: "No orders assigned to you" });
+    }
+
+    res.status(200).json(assignedOrders);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+
+
+
+
+// Delete Officer Account
+
+
+
+export const getOfficerProfile = asyncHandler(async (req, res) => {
+  try {
+    const officerId = req.agent._id;
+
+    const officer = await DeliveryOfficer.findById(officerId).select('-password');
+
+    if (!officer) {
+      return res.status(404).json({ success: false, message: 'Officer not found' });
+    }
+
+    res.status(200).json({ success: true, officer });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server Error!', error: error.message });
+  }
+});

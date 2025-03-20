@@ -1,6 +1,7 @@
 import Delivery from "../models/delivery.js";
 import User from "../models/userModel.js"; // Import User Model
 
+
 // Assign an Order to a Delivery Officer
 export const assignOrder = async (req, res) => {
   try {
@@ -9,6 +10,7 @@ export const assignOrder = async (req, res) => {
       orderId,
       customerName,
       deliveryOfficer,
+      deliveryOfficerEmail,
       estimatedDeliveryDate,
       deliveryNotes,
       deliveryFee,
@@ -28,6 +30,7 @@ export const assignOrder = async (req, res) => {
       orderId,
       customerName,
       deliveryOfficer,
+      deliveryOfficerEmail,
       estimatedDeliveryDate,
       deliveryNotes,
       deliveryFee,
@@ -41,6 +44,8 @@ export const assignOrder = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 // Get all assigned orders for a specific user
 export const getAssignedOrdersByUser = async (req, res) => {

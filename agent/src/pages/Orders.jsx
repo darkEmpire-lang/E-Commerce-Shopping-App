@@ -477,10 +477,8 @@ const Orders = ({ token }) => {
   }, {});
 
   const statusCounts = {
-    "Order Placed": 0,
-    Packing: 0,
-    Shipping: 0,
-    "Out for delivery": 0,
+    "Pending": 0,
+    "InTransit": 0,
     Delivered: 0,
   };
 
@@ -523,7 +521,7 @@ const Orders = ({ token }) => {
           </button>
         </div>
         <div className="flex gap-4">
-          <div className="relative w-72">
+          {/* <div className="relative w-72">
             <input
               type="text"
               placeholder="Search by Order ID, Name, or Status..."
@@ -532,7 +530,7 @@ const Orders = ({ token }) => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <FaSearch className="absolute left-3 top-3 text-gray-500" />
-          </div>
+          </div> */}
           <button
             onClick={() => setShowChart(!showChart)}
             className="px-4 py-2 bg-blue-500 text-white font-bold rounded-md flex items-center"
@@ -603,10 +601,8 @@ const Orders = ({ token }) => {
                   onChange={(event) => statusHandler(event, order._id)}
                 >
                   {[
-                    "Order Placed",
-                    "Packing",
-                    "Shipping",
-                    "Out for delivery",
+                    "Pending",
+                    "InTransit",
                     "Delivered",
                   ].map((status) => (
                     <option key={status} value={status}>

@@ -523,7 +523,7 @@ const Orders = ({ token }) => {
           </button>
         </div>
         <div className="flex gap-4">
-          <div className="relative w-72">
+          {/* <div className="relative w-72">
             <input
               type="text"
               placeholder="Search by Order ID, Name, or Status..."
@@ -532,14 +532,14 @@ const Orders = ({ token }) => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <FaSearch className="absolute left-3 top-3 text-gray-500" />
-          </div>
-          <button
+          </div> */}
+          {/* <button
             onClick={() => setShowChart(!showChart)}
             className="px-4 py-2 bg-blue-500 text-white font-bold rounded-md flex items-center"
           >
             <FaChartPie className="mr-2" />
             Chart
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -595,7 +595,7 @@ const Orders = ({ token }) => {
                 <p>{`${order.address.street}, ${order.address.city}`}</p>
                 <p>{`${order.address.state}, ${order.address.country}, ${order.address.zipcode}`}</p>
                 <p>{`Phone: ${order.address.phone}`}</p>
-                <p className="text-gray-600 mt-2">Status: {order.status}</p>
+                {/* <p className="text-gray-600 mt-2">Status: {order.status}</p>
                 <p>Date: {new Date(order.date).toLocaleDateString()}</p>
                 <select
                   className="mt-2 p-2 bg-gray-100 border border-gray-300 rounded-md"
@@ -613,7 +613,7 @@ const Orders = ({ token }) => {
                       {status}
                     </option>
                   ))}
-                </select>
+                </select> */}
 
 
 
@@ -621,7 +621,7 @@ const Orders = ({ token }) => {
 
                 <button
                   onClick={() => handleAssignButtonClick(order)}
-                  className="ml-4 font-bold bg-slate-200 rounded-md p-2"
+                  className="ml-0.2 font-bold bg-slate-200 rounded-md p-2"
                 >
                   Assign to delivery Agent
                 </button>

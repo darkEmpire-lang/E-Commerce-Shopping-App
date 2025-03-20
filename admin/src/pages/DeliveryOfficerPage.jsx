@@ -6,13 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 const DeliveryOfficerPage = ({ token }) => {
   const [officers, setOfficers] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [editOfficer, setEditOfficer] = useState(null);
 
   useEffect(() => {
     fetchOfficers();
   }, []);
 
+  // Fetch delivery officers from backend
   const fetchOfficers = async () => {
     try {
       const response = await axios.get(`${backendUrl}/api/agent`, {
@@ -25,46 +24,19 @@ const DeliveryOfficerPage = ({ token }) => {
     }
   };
 
-  const openEditModal = (officer) => {
-    setEditOfficer(officer);
-    setShowModal(true);
-  };
-
-  const handleUpdateOfficer = async (e) => {
-    e.preventDefault();
-    const { name, email, phone, isAvailable, role, availableHours } = e.target;
-    try {
-      await axios.put(
-        `${backendUrl}/api/agent/${editOfficer._id}`,
-        {
-          name: name.value,
-          email: email.value,
-          phone: phone.value,
-          isAvailable: isAvailable.checked,
-          role: role.value,
-          availableHours: availableHours.value,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      toast.success("Delivery Officer updated successfully!");
-      setShowModal(false);
-      fetchOfficers();
-    } catch (error) {
-      console.error(error);
-      toast.error("Error updating officer.");
-    }
-  };
-
+  // Delete officer
   const handleDeleteOfficer = async (id) => {
-    try {
-      await axios.delete(`http://localhost:4000/api/agent/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      toast.success("Officer deleted successfully!");
-      fetchOfficers();
-    } catch (error) {
-      console.error(error);
-      toast.error("Error deleting officer.");
+    if (window.confirm("Are you sure you want to delete this delivery officer?")) {
+      try {
+        await axios.delete(`${backendUrl}/api/agent/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        toast.success("Officer deleted successfully!");
+        fetchOfficers(); // Refresh list
+      } catch (error) {
+        console.error(error);
+        toast.error("Error deleting officer.");
+      }
     }
   };
 
@@ -95,13 +67,7 @@ const DeliveryOfficerPage = ({ token }) => {
               </td>
               <td className="p-3">{officer.role}</td>
               <td className="p-3">{officer.availableHours}</td>
-              <td className="p-3 flex gap-2">
-                <button
-                  onClick={() => openEditModal(officer)}
-                  className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
-                >
-                  Edit
-                </button>
+              <td className="p-3 text-center">
                 <button
                   onClick={() => handleDeleteOfficer(officer._id)}
                   className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
@@ -113,68 +79,6 @@ const DeliveryOfficerPage = ({ token }) => {
           ))}
         </tbody>
       </table>
-
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4">Edit Delivery Officer</h2>
-            <form onSubmit={handleUpdateOfficer} className="flex flex-col gap-4">
-              <input
-                type="text"
-                name="name"
-                defaultValue={editOfficer.name}
-                className="border p-2 rounded-md"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                defaultValue={editOfficer.email}
-                className="border p-2 rounded-md"
-                required
-              />
-              <input
-                type="text"
-                name="phone"
-                defaultValue={editOfficer.phone}
-                className="border p-2 rounded-md"
-                required
-              />
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="isAvailable"
-                  defaultChecked={editOfficer.isAvailable}
-                />
-                Available
-              </label>
-              <div>
-                <label className="block text-sm font-medium">Role</label>
-                <select
-                  name="role"
-                  defaultValue={editOfficer.role}
-                  className="w-full border p-2 rounded-md"
-                >
-                  <option value="Junior">Junior Delivery Officer</option>
-                  <option value="Senior">Senior Delivery Officer</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium">Available Hours</label>
-                <input
-                  type="text"
-                  name="availableHours"
-                  defaultValue={editOfficer.availableHours}
-                  className="border p-2 rounded-md"
-                />
-              </div>
-              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
-                Update
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

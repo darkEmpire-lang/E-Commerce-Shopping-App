@@ -7,6 +7,8 @@ import list_icon from './list_icon.png'
 import Fashion_Logo from './Fashion_Logo.png'
 import chart from './chart.jpg'
 import report from './report.jpg'
+import agent from './agent.png'
+import mm from './mm.png'
 
 export const assets = {
     logo,
@@ -17,6 +19,7 @@ export const assets = {
     list_icon,
     Fashion_Logo,
     chart,
-    report
+    agent,
+    mm
 }
 
