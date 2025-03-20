@@ -3,7 +3,8 @@ import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
-const Navbar = () => {
+
+const AdminNavbar = () => {
   const [visible, setVisible] = useState(false);
   const {
     setShowSearch,
@@ -12,6 +13,7 @@ const Navbar = () => {
     token,
     setToken,
     setcartItems,
+    userRole, // Assuming userRole is available and indicates if the user is an admin
   } = useContext(ShopContext);
 
   const logout = () => {
@@ -52,16 +54,27 @@ const Navbar = () => {
           to="/about"
           className="flex flex-col items-center gap-1 group relative hover:text-blue-600 transition-all duration-300"
         >
-          <p>Settings</p>
+          <p>About</p>
           <div className="absolute left-0 right-0 bottom-[-5px] w-0 bg-blue-600 h-[1.5px] group-hover:w-full transition-all duration-300"></div>
         </NavLink>
         <NavLink
           to="/contact"
           className="flex flex-col items-center gap-1 group relative hover:text-blue-600 transition-all duration-300"
         >
-          <p>Dashboard</p>
+          <p>Contact</p>
           <div className="absolute left-0 right-0 bottom-[-5px] w-0 bg-blue-600 h-[1.5px] group-hover:w-full transition-all duration-300"></div>
         </NavLink>
+        
+        {/* Admin Link for Desktop - Only visible for admin users */}
+        {userRole === "admin" && (
+          <NavLink
+            to="/admin"
+            className="flex flex-col items-center gap-1 group relative hover:text-blue-600 transition-all duration-300"
+          >
+            <p>Admin Dashboard</p>
+            <div className="absolute left-0 right-0 bottom-[-5px] w-0 bg-blue-600 h-[1.5px] group-hover:w-full transition-all duration-300"></div>
+          </NavLink>
+        )}
       </ul>
 
       {/* Right Section */}
@@ -165,6 +178,17 @@ const Navbar = () => {
             >
               CONTACT
             </NavLink>
+            
+            {/* Admin Sidebar Link */}
+            {userRole === "admin" && (
+              <NavLink
+                to="/admin"
+                className="py-3 px-6 border-b text-gray-700 hover:text-blue-600 transition-all duration-300"
+                onClick={() => setVisible(false)}
+              >
+                Admin Dashboard
+              </NavLink>
+            )}
           </div>
         </div>
       </div>
@@ -172,4 +196,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

@@ -5,13 +5,13 @@ import {Routes,Route} from 'react-router-dom'
 import Add from './pages/Add'
 import List from './pages/List'
 import Orders from './pages/Orders'
-import Login from './component/Login'
 import AssignedOrders from './pages/AssignedOrders'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddDeliveryOfficer from './pages/AddDeliveryOfficer '
 import DeliveryOfficerPage from './pages/DeliveryOfficerPage'
 import DeliveryAgentLogin from './component/DeliveryAgentLogin'
+import DeliveryAgentDashboard from './pages/DeliveryAgentDashboard'
 
 
 export const backendUrl=import.meta.env.VITE_BACKEND_URL
@@ -37,7 +37,7 @@ const App = () => {
       <ToastContainer/>
 
       {token ===""
-      ? <Login setToken={setToken}/> 
+      ? <DeliveryAgentLogin setToken={setToken}/> 
       : <>
 
       <NavBar setToken={setToken}/>
@@ -58,6 +58,8 @@ const App = () => {
           <Route path='/delivery' element ={<AssignedOrders token={token}/>}/>
           <Route path='/agent' element ={<AddDeliveryOfficer token={token}/>}/>
           <Route path='/agents' element ={<DeliveryOfficerPage token={token}/>}/>
+          <Route path='/dashboard' element ={<DeliveryAgentDashboard token={token}/>}/>
+  
   
          </Routes>
   

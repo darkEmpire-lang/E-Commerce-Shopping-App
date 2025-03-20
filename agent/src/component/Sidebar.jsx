@@ -69,10 +69,10 @@ const Sidebar = () => {
 
         <NavLink
           className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 transition-all"
-          to="/agents"
+          to="/dashboard"
         >
           <img className="w-5 h-5" src={assets.report} alt="Orders Icon" />
-          <p className="hidden md:block text-gray-700 font-medium">Available Agents</p>
+          <p className="hidden md:block text-gray-700 font-medium">Assigned Orders</p>
         </NavLink>
 
 

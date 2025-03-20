@@ -8,8 +8,9 @@ import Order from '../models/orderModel.js'
 const orderRouter=express.Router()
 
 //Admin Features
-orderRouter.post('/list',adminAuth,allOrders)
-orderRouter.post('/status',adminAuth,updateStatus)
+orderRouter.post('/list',allOrders)
+orderRouter.post('/status',updateStatus)
+
 
 
 

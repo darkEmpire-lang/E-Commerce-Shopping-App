@@ -7,6 +7,8 @@ import userRouter from './routes/userRoute.js';
 import productRouter from './routes/productRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
+import deliveryOfficerRoutes from './routes/deliveryOfficerRoutes.js';
+import deliveryRoutes from "./routes/deliveryRoutes.js";
 import bodyParser from 'body-parser'; // Use 'import' for body-parser
 import helmet from 'helmet'; // Use 'import' for helmet'
 
@@ -49,6 +51,8 @@ app.use('/api/user', userRouter);
 app.use('/api/product',productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
+app.use('/api/delivery', deliveryRoutes);
+app.use('/api/agent', deliveryOfficerRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {

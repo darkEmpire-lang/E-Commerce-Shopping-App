@@ -619,12 +619,7 @@ const Orders = ({ token }) => {
 
                 
 
-                <button
-                  onClick={() => handleAssignButtonClick(order)}
-                  className="ml-4 font-bold bg-slate-200 rounded-md p-2"
-                >
-                  Assign to delivery Agent
-                </button>
+              
 
 
 
