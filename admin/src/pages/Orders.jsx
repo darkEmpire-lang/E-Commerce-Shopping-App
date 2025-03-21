@@ -51,192 +51,210 @@ const Orders = ({ token }) => {
 
     closeModal();
   };
+  
+const DeliveryModal = ({ order, isModalOpen, closeModal }) => {
+  const navigate = useNavigate();
 
-  const DeliveryModal = ({ order, isModalOpen, closeModal }) => {
-    const navigate = useNavigate();
+  // States for input fields
+  const [selectedDeliveryOfficer, setSelectedDeliveryOfficer] = useState("");
+  const [estimatedDeliveryDate, setEstimatedDeliveryDate] = useState("");
+  const [deliveryNotes, setDeliveryNotes] = useState("");
+  const [deliveryFee, setDeliveryFee] = useState("");
+  const [trackingNumber, setTrackingNumber] = useState("");
+  const [comments, setComments] = useState("");
+  const [deliveryOfficers, setDeliveryOfficers] = useState([]);
 
-    // States for input fields
-    const [selectedDeliveryOfficer, setSelectedDeliveryOfficer] = useState("");
-    const [estimatedDeliveryDate, setEstimatedDeliveryDate] = useState("");
-    const [deliveryNotes, setDeliveryNotes] = useState("");
-    const [deliveryFee, setDeliveryFee] = useState("");
-    const [trackingNumber, setTrackingNumber] = useState("");
-    const [comments, setComments] = useState("");
-    const [deliveryOfficers, setDeliveryOfficers] = useState([]);
+  useEffect(() => {
+    if (isModalOpen) {
+      axios
+        .get("http://localhost:4000/api/agent") // Change API endpoint if necessary
+        .then((response) => {
+          setDeliveryOfficers(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching delivery officers:", error);
+        });
 
-    useEffect(() => {
-      if (isModalOpen) {
-        axios
-          .get("http://localhost:4000/api/agent") // Change API endpoint if necessary
-          .then((response) => {
-            setDeliveryOfficers(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching delivery officers:", error);
-          });
+      // Generate a tracking number
+      setTrackingNumber(`TRK-${Math.floor(100000 + Math.random() * 900000)}`);
+    }
+  }, [isModalOpen]);
 
-        // Generate a tracking number
-        setTrackingNumber(`TRK-${Math.floor(100000 + Math.random() * 900000)}`);
-      }
-    }, [isModalOpen]);
+  // Validate form before submission
+  const validateForm = () => {
+    const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
-    // Generate a random tracking number when the modal opens
-    useEffect(() => {
-      if (isModalOpen) {
-        setTrackingNumber(`TRK-${Math.floor(100000 + Math.random() * 900000)}`);
-      }
-    }, [isModalOpen]);
+    if (!selectedDeliveryOfficer) {
+      Swal.fire("Validation Error", "Please select a delivery officer!", "error");
+      return false;
+    }
+    if (!estimatedDeliveryDate || estimatedDeliveryDate <= today) {
+      Swal.fire("Validation Error", "Estimated delivery date must be a future date!", "error");
+      return false;
+    }
+    if (!deliveryNotes.trim()) {
+      Swal.fire("Validation Error", "Delivery notes cannot be empty!", "error");
+      return false;
+    }
+    if (isNaN(deliveryFee) || deliveryFee <= 0) {
+      Swal.fire("Validation Error", "Delivery fee must be a positive number!", "error");
+      return false;
+    }
+    if (!comments.trim()) {
+      Swal.fire("Validation Error", "Comments cannot be empty!", "error");
+      return false;
+    }
+    return true;
+  };
 
-    // Assign order function
-    const assignOrder = async () => {
-      try {
-        const response = await axios.post(
-          "http://localhost:4000/api/delivery/assign",
-          {
-            userId: order.userId,
-            orderId: order._id,
-            customerName: `${order.address.firstName} ${order.address.lastName}`,
-            deliveryOfficer: selectedDeliveryOfficer,
-            estimatedDeliveryDate,
-            deliveryNotes,
-            deliveryFee,
-            trackingNumber,
-            comments,
-          }
-        );
+  // Assign order function
+  const assignOrder = async () => {
+    if (!validateForm()) return;
 
-        if (response.status === 201) {
-          Swal.fire({
-            title: "Success!",
-            text: "Order assigned successfully!",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
-            closeModal();
-            navigate("/delivery"); // Redirect to assigned orders page
-          });
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/delivery/assign",
+        {
+          userId: order.userId,
+          orderId: order._id,
+          customerName: `${order.address.firstName} ${order.address.lastName}`,
+          deliveryOfficer: selectedDeliveryOfficer,
+          estimatedDeliveryDate,
+          deliveryNotes,
+          deliveryFee,
+          trackingNumber,
+          comments,
         }
-      } catch (error) {
-        console.error(
-          "Error assigning order:",
-          error.response?.data || error.message
-        );
+      );
+
+      if (response.status === 201) {
         Swal.fire({
-          title: "Error!",
-          text: "Failed to assign order. Please try again.",
-          icon: "error",
+          title: "Success!",
+          text: "Order assigned successfully!",
+          icon: "success",
           confirmButtonText: "OK",
+        }).then(() => {
+          closeModal();
+          navigate("/delivery"); // Redirect to assigned orders page
         });
       }
-    };
+    } catch (error) {
+      console.error("Error assigning order:", error.response?.data || error.message);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to assign order. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
 
-    return (
-      <div
-        className={`fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center transition-opacity ${
-          isModalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="bg-white p-6 rounded-md shadow-lg w-[700px] max-h-[600px]">
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Assign Order to Delivery Agent
-          </h2>
+  return (
+    <div
+      className={`fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center transition-opacity ${
+        isModalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      <div className="bg-white p-6 rounded-md shadow-lg w-[700px] max-h-[600px]">
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          Assign Order to Delivery Agent
+        </h2>
 
-          <p className="font-semibold">Order ID: {order._id}</p>
-          <p className="mt-4 font-medium text-gray-800">{`${order.address.firstName} ${order.address.lastName}`}</p>
-          <p>{`${order.address.street}, ${order.address.city}`}</p>
-          <p>{`${order.address.state}, ${order.address.country}, ${order.address.zipcode}`}</p>
-          <p>{`Phone: ${order.address.phone}`}</p>
-          <p>{`OrderStatus: ${order.status}`}</p>
+        <p className="font-semibold">Order ID: {order._id}</p>
+        <p className="mt-4 font-medium text-gray-800">{`${order.address.firstName} ${order.address.lastName}`}</p>
+        <p>{`${order.address.street}, ${order.address.city}`}</p>
+        <p>{`${order.address.state}, ${order.address.country}, ${order.address.zipcode}`}</p>
+        <p>{`Phone: ${order.address.phone}`}</p>
+        <p>{`OrderStatus: ${order.status}`}</p>
 
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div>
-              <label>Select Delivery Officer</label>
-              <select
-                value={selectedDeliveryOfficer}
-                onChange={(e) => setSelectedDeliveryOfficer(e.target.value)}
-                className="w-full p-2 border rounded-md"
-              >
-                <option value="">Select Officer</option>
-                {deliveryOfficers.map((officer) => (
-                  <option key={officer.id} value={officer.name}>
-                    {officer.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block font-medium">
-                Estimated Delivery Date
-              </label>
-              <input
-                type="date"
-                className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
-                value={estimatedDeliveryDate}
-                onChange={(e) => setEstimatedDeliveryDate(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block font-medium">Delivery Notes</label>
-              <textarea
-                className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
-                value={deliveryNotes}
-                onChange={(e) => setDeliveryNotes(e.target.value)}
-                placeholder="Additional delivery instructions..."
-              ></textarea>
-            </div>
-
-            <div>
-              <label className="block font-medium">Delivery Fee</label>
-              <input
-                type="number"
-                className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
-                value={deliveryFee}
-                onChange={(e) => setDeliveryFee(e.target.value)}
-                placeholder="Enter delivery fee"
-              />
-            </div>
-
-            <div>
-              <label className="block font-medium">Tracking Number</label>
-              <input
-                type="text"
-                className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
-                value={trackingNumber}
-                readOnly
-              />
-            </div>
-
-            <div>
-              <label className="block font-medium">Comments</label>
-              <textarea
-                className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
-                value={comments}
-                onChange={(e) => setComments(e.target.value)}
-                placeholder="Additional comments for the delivery"
-              ></textarea>
-            </div>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <label>Select Delivery Officer</label>
+            <select
+              value={selectedDeliveryOfficer}
+              onChange={(e) => setSelectedDeliveryOfficer(e.target.value)}
+              className="w-full p-2 border rounded-md"
+            >
+              <option value="">Select Officer</option>
+              {deliveryOfficers.map((officer) => (
+                <option key={officer.id} value={officer.name}>
+                  {officer.name}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="mt-6 flex justify-center space-x-4">
-            <button
-              onClick={assignOrder}
-              className="bg-green-500 text-white p-2 rounded-md"
-            >
-              Assign Order
-            </button>
-            <button
-              onClick={closeModal}
-              className="bg-gray-300 text-gray-800 p-2 rounded-md"
-            >
-              Cancel
-            </button>
+          <div>
+            <label className="block font-medium">Estimated Delivery Date</label>
+            <input
+              type="date"
+              className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
+              value={estimatedDeliveryDate}
+              onChange={(e) => setEstimatedDeliveryDate(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium">Delivery Notes</label>
+            <textarea
+              className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
+              value={deliveryNotes}
+              onChange={(e) => setDeliveryNotes(e.target.value)}
+              placeholder="Additional delivery instructions..."
+            ></textarea>
+          </div>
+
+          <div>
+            <label className="block font-medium">Delivery Fee</label>
+            <input
+              type="number"
+              className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
+              value={deliveryFee}
+              onChange={(e) => setDeliveryFee(e.target.value)}
+              placeholder="Enter delivery fee"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium">Tracking Number</label>
+            <input
+              type="text"
+              className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
+              value={trackingNumber}
+              readOnly
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium">Comments</label>
+            <textarea
+              className="mt-2 p-2 w-full bg-gray-100 border border-gray-300 rounded-md"
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+              placeholder="Additional comments for the delivery"
+            ></textarea>
           </div>
         </div>
+
+        <div className="mt-6 flex justify-center space-x-4">
+          <button
+            onClick={assignOrder}
+            className="bg-green-500 text-white p-2 rounded-md"
+          >
+            Assign Order
+          </button>
+          <button
+            onClick={closeModal}
+            className="bg-gray-300 text-gray-800 p-2 rounded-md"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
+
 
   const fetchAllOrders = async () => {
     if (!token) {

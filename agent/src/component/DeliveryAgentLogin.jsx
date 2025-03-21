@@ -42,7 +42,7 @@ const DeliveryAgentLogin = ({ setToken }) => {
       });
       if (response.data.success) {
         setToken(response.data.token);
-    
+
         localStorage.setItem("agentId", response.data.agent.id);
 
         toast.success("Login Successful");
@@ -76,12 +76,12 @@ const DeliveryAgentLogin = ({ setToken }) => {
       if (response.data.success) {
         toast.success("Signup Successful!");
         localStorage.setItem("agentName", name);
-        localStorage.setItem("agentEmail",email);
-        localStorage.setItem("agentPhone",phone)
-        localStorage.setItem("agentRole",role)
-        localStorage.setItem("agentisAvailble",isAvailable)
-        localStorage.setItem("agentavailbleHours", availableHours)
-        
+        localStorage.setItem("agentEmail", email);
+        localStorage.setItem("agentPhone", phone);
+        localStorage.setItem("agentRole", role);
+        localStorage.setItem("agentisAvailble", isAvailable);
+        localStorage.setItem("agentavailbleHours", availableHours);
+
         navigate("/dashboard");
       } else {
         toast.error(response.data.message);
@@ -154,13 +154,24 @@ const DeliveryAgentLogin = ({ setToken }) => {
             <div className="relative">
               <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Validate: Name should start with a letter
+                  if (value === "" || /^[A-Za-z]/.test(value)) {
+                    setName(value);
+                  }
+                }}
                 value={name}
                 className="w-full px-10 py-3 border border-gray-300 rounded-lg"
                 type="text"
                 placeholder="Full Name"
                 required
               />
+              {name.length > 0 && !/^[A-Za-z]/.test(name) && (
+                <p className="text-red-500 text-sm mt-1">
+                  Name must start with a letter
+                </p>
+              )}
             </div>
 
             <div className="relative">
@@ -178,13 +189,24 @@ const DeliveryAgentLogin = ({ setToken }) => {
             <div className="relative">
               <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Validate: Allow only digits and ensure max length of 10
+                  if (/^\d{0,10}$/.test(value)) {
+                    setPhone(value);
+                  }
+                }}
                 value={phone}
                 className="w-full px-10 py-3 border border-gray-300 rounded-lg"
                 type="tel"
                 placeholder="Phone"
                 required
               />
+              {phone.length > 0 && phone.length < 10 && (
+                <p className="text-red-500 text-sm mt-1">
+                  Phone number must be 10 digits
+                </p>
+              )}
             </div>
 
             {/* Password Field for Signup */}
