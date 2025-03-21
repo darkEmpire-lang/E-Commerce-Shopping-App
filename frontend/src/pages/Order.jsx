@@ -33,7 +33,7 @@ const Orders = () => {
   };
 
   const trackOrder = (orderId) => {
-    // Logic to track order. For example, showing a modal or redirecting to a tracking page
+   
     console.log(`Tracking order ${orderId}`);
   };
 
@@ -84,7 +84,7 @@ const Orders = () => {
               <div className="flex items-center gap-2">
                 <p
                   className={`min-w-2 h-2 rounded-full ${
-                    item.status === 'Shipped' ? 'bg-green-500' : 'bg-yellow-500'
+                    item.status === 'Delivered' ? 'bg-green-500' : 'bg-yellow-500'
                   }`}
                 ></p>
                 <p className="text-sm md:text-base">{item.status || 'Processing'}</p>

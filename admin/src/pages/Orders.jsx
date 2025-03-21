@@ -595,25 +595,9 @@ const Orders = ({ token }) => {
                 <p>{`${order.address.street}, ${order.address.city}`}</p>
                 <p>{`${order.address.state}, ${order.address.country}, ${order.address.zipcode}`}</p>
                 <p>{`Phone: ${order.address.phone}`}</p>
-                {/* <p className="text-gray-600 mt-2">Status: {order.status}</p>
+               
                 <p>Date: {new Date(order.date).toLocaleDateString()}</p>
-                <select
-                  className="mt-2 p-2 bg-gray-100 border border-gray-300 rounded-md"
-                  value={order.status}
-                  onChange={(event) => statusHandler(event, order._id)}
-                >
-                  {[
-                    "Order Placed",
-                    "Packing",
-                    "Shipping",
-                    "Out for delivery",
-                    "Delivered",
-                  ].map((status) => (
-                    <option key={status} value={status}>
-                      {status}
-                    </option>
-                  ))}
-                </select> */}
+                
 
 
 
@@ -656,7 +640,11 @@ const Orders = ({ token }) => {
                 >
                   <FaTrashAlt />
                 </button>
+
+               
               </div>
+
+              <p className="text-gray-600 mt-12 ml-32 font-extrabold"> Status:{order.status}</p>
             </div>
           ))
         )}

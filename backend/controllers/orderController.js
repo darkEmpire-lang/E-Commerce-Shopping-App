@@ -45,7 +45,7 @@ const placeOrder=async (req,res)=>{
 
         await userModel.findByIdAndUpdate(userId,{cartData:{}})
 
-        res.json({success:true,message:"Order Placed"})
+        res.json({success:true,message:"Pending"})
 
 
 
