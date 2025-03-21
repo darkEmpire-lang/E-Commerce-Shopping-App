@@ -600,7 +600,7 @@ const Orders = ({ token }) => {
                   value={order.status}
                   onChange={(event) => statusHandler(event, order._id)}
                 >
-                  {[
+                  {["order placed",
                     "Pending",
                     "InTransit",
                     "Delivered",

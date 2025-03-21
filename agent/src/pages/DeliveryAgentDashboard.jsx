@@ -109,7 +109,7 @@ const DeliveryAgentDashboard = ({ deliveryOfficerId }) => {
     }));
 
     setTimeout(() => {
-      const statuses = ["Pending", "In Transit", "Delivered"];
+      const statuses = ["Pending", "Processing", "Complete"];
       let currentStatus = "Pending";
       let statusIndex = statuses.indexOf(currentStatus);
 
@@ -124,8 +124,8 @@ const DeliveryAgentDashboard = ({ deliveryOfficerId }) => {
         } else {
           clearInterval(interval);
         }
-      }, 9000);
-    }, 9000); // Delay before status changes start
+      }, 90000);
+    }, 90000); // Delay before status changes start
   };
 
   return (
