@@ -190,36 +190,109 @@ const DeliveryAgentDashboard = ({ deliveryOfficerId }) => {
 
       {/* Edit Profile Modal */}
       {editMode && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
+  <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
 
-            {[["Name", updatedName, setUpdatedName], ["Email", updatedEmail, setUpdatedEmail], ["Role", updatedRole, setUpdatedRole], ["Phone", updatedPhone, setUpdatedPhone], ["Availability (Yes/No)", updatedIsAvailable, setUpdatedIsAvailable], ["Available Hours", updatedAvailableHours, setUpdatedAvailableHours],].map(([label, value, setter], index) => (
-              <div key={index} className="mb-3">
-                <label className="block mb-1 text-sm font-medium">{label}</label>
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setter(e.target.value)}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-            ))}
+      {/* Name Field - Only Letters Validation */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-medium">Name</label>
+        <input
+          type="text"
+          value={updatedName}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === "" || /^[A-Za-z\s]+$/.test(value)) {
+              setUpdatedName(value);
+            }
+          }}
+          className="w-full p-2 border rounded"
+        />
+        {updatedName.length > 0 && !/^[A-Za-z\s]+$/.test(updatedName) && (
+          <p className="text-red-500 text-sm mt-1">Name must contain only letters</p>
+        )}
+      </div>
 
-            <div className="flex justify-end gap-2 mt-4">
-              <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onClick={handleSaveChanges}>
-                Save Changes
-              </button>
-              <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={handleDeleteProfile}>
-                Delete Profile
-              </button>
-              <button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600" onClick={() => setEditMode(false)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Email Field (No Validation Required) */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-medium">Email</label>
+        <input
+          type="email"
+          value={updatedEmail}
+          onChange={(e) => setUpdatedEmail(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      {/* Role Field */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-medium">Role</label>
+        <input
+          type="text"
+          value={updatedRole}
+          onChange={(e) => setUpdatedRole(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      {/* Phone Field - Must Be Exactly 10 Digits */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-medium">Phone</label>
+        <input
+          type="tel"
+          value={updatedPhone}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d{0,10}$/.test(value)) {
+              setUpdatedPhone(value);
+            }
+          }}
+          className="w-full p-2 border rounded"
+        />
+        {updatedPhone.length > 0 && updatedPhone.length !== 10 && (
+          <p className="text-red-500 text-sm mt-1">Phone number must be 10 digits</p>
+        )}
+      </div>
+
+      {/* Availability Field */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-medium">Availability (Yes/No)</label>
+        <input
+          type="text"
+          value={updatedIsAvailable}
+          onChange={(e) => setUpdatedIsAvailable(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      {/* Available Hours Field */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-medium">Available Hours</label>
+        <input
+          type="text"
+          value={updatedAvailableHours}
+          onChange={(e) => setUpdatedAvailableHours(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      {/* Buttons */}
+      <div className="flex justify-end gap-2 mt-4">
+        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" onClick={handleSaveChanges}>
+          Save Changes
+        </button>
+        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={handleDeleteProfile}>
+          Delete Profile
+        </button>
+        <button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600" onClick={() => setEditMode(false)}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+      
     </div>
   );
 };
